@@ -1,0 +1,17 @@
+# --------------------------------------------------------------------------------------------------
+# EXAMPLE VARIABLES
+#
+# To use this file:
+# 1. Rename it to 'terraform.tfvars' (this file is ignored by .gitignore).
+# 2. Fill in the required values below.
+# 3. Run 'terraform plan' or 'terraform apply'.
+#
+# DO NOT COMMIT THE 'terraform.tfvars' FILE TO VERSION CONTROL.
+# --------------------------------------------------------------------------------------------------
+
+# The AWS region where the backend resources will be created.
+aws_region = "us-east-1"
+
+# A globally unique name for the S3 bucket that will store Terraform state files.
+# Example: "my-organization-tfstate-2024"
+s3_bucket_name = "REPLACE_WITH_A_GLOBALLY_UNIQUE_BUCKET_NAME"
