@@ -1,3 +1,41 @@
+%% Title: Flowchart 1: The Chaos of Local State
+graph TD
+    %% Define main columns using subgraphs
+    subgraph Developer A
+        idA[💻 Laptop A]
+        stateA["📄 terraform.tfstate<br/>state: { ec2_instance.web_1, ec2_instance.web_2 }"]
+        idA --- stateA
+    end
+
+    subgraph Developer B
+        idB[💻 Laptop B]
+        stateB["📄 terraform.tfstate<br/>state: { ec2_instance.web_1 }"]
+        idB --- stateB
+    end
+
+    subgraph "Live AWS Infrastructure (Conflict State)"
+        style conflictNode fill:#ffcccc,stroke:#cc0000,stroke-width:2px,color:#c00
+        conflictNode["💥<br/><b>STATE COLLISION</b>"]
+        aws_web1_final[🖥️ web_1]
+        aws_web2_destroyed["<strike>🖥️ web_2</strike>"]
+    end
+
+    %% Define flow and actions
+    idA -- "1. `terraform apply` (adds web_2)" --> aws_web2_destroyed;
+    idB -- "2. `terraform apply` (removes web_2)" --> conflictNode;
+
+    %% Define callouts as separate, styled nodes
+    note1("<b>1. Outdated State</b><br/>Developer B is unaware of the<br/>`web_2` instance created by Developer A.")
+    note2("<b>2. Destructive Plan</b><br/>Terraform plans to destroy `web_2`<br/>because it's not in Developer B's<br/>local state file.")
+    note3("<b>3. Collision!</b><br/>The live infrastructure is now<br/>dangerously out of sync with<br/>both developers' intentions.")
+    note4("<b>4. Resource Loss</b><br/>Developer A's work is silently<br/>destroyed, causing an outage.")
+
+    %% --- STYLING ---
+    linkStyle 0 stroke:green,stroke-width:2px
+    linkStyle 1 stroke:red,stroke-width:3px,stroke-dasharray: 5 5
+    classDef note fill:#FFFACD,stroke:#444,stroke-width:1px,rx:5,ry:5,color:#333
+    class note1,note2,note3,note4 note
+
 # Terraform S3 Backend: The Definitive Starter Kit
 
 This repository provides a production-grade, reusable, and opinionated boilerplate for setting up and using the modern Terraform S3 backend on AWS. It is designed to be the single best-practice starting point for any new project.
