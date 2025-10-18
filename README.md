@@ -4,7 +4,7 @@ This repository provides a production-grade, reusable, and opinionated boilerpla
 
 The architecture is simple and robust: a secure, version-controlled, and encrypted S3 bucket stores your Terraform state files, leveraging S3's native consistency and locking features.
 
-![High-Level Architecture Diagram for Terraform S3 Backend](architecturediagram.png)
+
 
 ### Why This Approach?
 
